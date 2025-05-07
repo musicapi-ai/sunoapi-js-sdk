@@ -21,20 +21,20 @@ The `sunoapi` is a Node.js SDK for interacting with the SunoAPI to create and ma
 Install the SDK using npm:
 
 ```bash
-npm install sunoapi
+npm install @musicapi/sunoapi
 ```
 
 ## Usage
 
 ### Importing the SDK
 
-```javascript
-const SunoAPI = require('sunoapi');
+```typescript
+import SunoAPI from '@musicapi/sunoapi';
 ```
 
 ### Initializing the SDK
 
-```javascript
+```typescript
 const suno = new SunoAPI({
   apiKey: 'your_api_key', // Replace with your API key
   baseUrl: 'https://api.musicapi.ai', // Default base URL
@@ -45,8 +45,13 @@ const suno = new SunoAPI({
 
 #### Custom Mode Example
 
-```javascript
-const response = await suno.createMusic({
+```typescript
+interface CreateMusicResponse {
+  message: string;
+  task_id: string;
+}
+
+const response: CreateMusicResponse = await suno.createMusic({
   custom_mode: true,
   prompt: `[Verse]
 Stars they shine above me
@@ -64,8 +69,8 @@ console.log(response);
 
 #### Non-Custom Mode Example
 
-```javascript
-const response = await suno.createMusic({
+```typescript
+const response: CreateMusicResponse = await suno.createMusic({
   custom_mode: false,
   gpt_description_prompt: 'A calm and relaxing instrumental track.',
   mv: 'sonic-v4',
@@ -77,8 +82,8 @@ console.log(response);
 
 ### Extending Uploaded Music
 
-```javascript
-const response = await suno.createMusic({
+```typescript
+const response: CreateMusicResponse = await suno.createMusic({
   task_type: 'extend_upload_music',
   mv: 'sonic-v4',
   custom_mode: false,
@@ -90,8 +95,8 @@ console.log(response);
 
 ### Using Personas
 
-```javascript
-const response = await suno.createMusic({
+```typescript
+const response: CreateMusicResponse = await suno.createMusic({
   task_type: 'persona_music',
   persona_id: 'your_persona_id',
   mv: 'sonic-v3-5',
@@ -104,8 +109,8 @@ console.log(response);
 
 ### Extending Existing Music
 
-```javascript
-const response = await suno.createMusic({
+```typescript
+const response: CreateMusicResponse = await suno.createMusic({
   task_type: 'extend_music',
   custom_mode: true,
   prompt: `[Verse]
@@ -123,8 +128,8 @@ console.log(response);
 
 ### 扩展现有音乐
 
-```javascript
-const response = await suno.createMusic({
+```typescript
+const response: CreateMusicResponse = await suno.createMusic({
   task_type: 'extend_music',
   custom_mode: true,
   prompt: `[Verse]
@@ -210,8 +215,8 @@ Creates music based on the provided options.
 
 #### 使用示例
 
-```javascript
-const taskId = "468d0e42-f7a6-40ce-9a4c-37db56b13b99";
+```typescript
+const taskId: string = "468d0e42-f7a6-40ce-9a4c-37db56b13b99";
 const result = await suno.getMusic(taskId);
 console.log(result);
 ```
@@ -241,10 +246,14 @@ console.log(result);
 
 #### 使用示例
 
-```javascript
+```typescript
+interface CreateLyricsOptions {
+  description: string;
+}
+
 const response = await suno.createLyrics({
   description: "a song about sky"
-});
+} as CreateLyricsOptions);
 console.log(response);
 ```
 
