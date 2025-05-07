@@ -1,6 +1,6 @@
 import { SunoAPI as SunoAPIClient } from './client';
 import { SunoAPIConfig } from './types/config';
-import { CreateMusicOptions, ExtendMusicOptions, MusicResponse, GetMusicResponse } from './types/music';
+import { CreateMusicOptions, GetMusicResponse, CreateLyricsOptions, CreateLyricsResponse } from './types/music';
 
 export class SunoAPI {
   private client: SunoAPIClient;
@@ -23,6 +23,14 @@ export class SunoAPI {
    */
   public async getMusic(taskId: string): Promise<GetMusicResponse> {
     return this.client.getMusic(taskId);
+  }
+
+  /**
+   * 生成歌词内容
+   * @param options 生成歌词的选项
+   */
+  public async createLyrics(options: CreateLyricsOptions): Promise<CreateLyricsResponse> {
+    return this.client.createLyrics(options);
   }
 }
 

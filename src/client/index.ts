@@ -1,7 +1,7 @@
 // src/client/index.ts
 
 import axios from 'axios';
-import { CreateMusicOptions, ExtendMusicOptions, GetMusicResponse } from '../types/music';
+import { CreateMusicOptions, ExtendMusicOptions, GetMusicResponse, CreateLyricsOptions, CreateLyricsResponse } from '../types/music';
 import { APIError } from '../errors';
 import { API_BASE_URL } from '../constants';
 
@@ -57,6 +57,23 @@ export class SunoAPI {
                 throw new APIError(error.response.data.message);
             }
             throw new APIError('Error retrieving music');
+        }
+    }
+
+    async createLyrics(options: CreateLyricsOptions): Promise<CreateLyricsResponse> {
+        try {
+            const response = await axios.post(`${this.baseUrl}/api/v1/sonic/lyrics`, options, {
+                headers: {
+                    'Authorization': `Bearer ${this.apiKey}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+            return response.data;
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response?.data?.message) {
+                throw new APIError(error.response.data.message);
+            }
+            throw new APIError('Error creating lyrics');
         }
     }
 }

@@ -115,3 +115,18 @@ export interface GetMusicResponse {
   }>;
   message: string;
 }
+
+export interface CreateLyricsOptions {
+  description: string;
+}
+
+export interface LyricsResult {
+  title: string;
+  lyrics: string;
+}
+
+export interface CreateLyricsResponse {
+  code: number;
+  results: LyricsResult[];
+  message: string;
+}

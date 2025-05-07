@@ -209,6 +209,38 @@ const result = await suno.getMusic(taskId);
 console.log(result);
 ```
 
+### `createLyrics(options)`
+
+生成歌词内容。
+
+#### 参数
+
+- **`description`** (string): 歌词描述，用于指导歌词生成的主题和风格。
+
+#### 返回示例
+
+```json
+{
+  "code": 200,
+  "results": [
+    {
+      "title": "Whisper of Shadows",
+      "lyrics": "[Verse]\nIn the alley dark as night\nLonely whispers out of sight\n..."
+    }
+  ],
+  "message": "success"
+}
+```
+
+#### 使用示例
+
+```javascript
+const response = await suno.createLyrics({
+  description: "a song about sky"
+});
+console.log(response);
+```
+
 ## Notes
 
 - When extending uploaded music, use the `extend_upload_music` task type.
