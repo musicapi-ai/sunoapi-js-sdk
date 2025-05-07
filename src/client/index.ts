@@ -1,7 +1,7 @@
 // src/client/index.ts
 
 import axios from 'axios';
-import { CreateMusicOptions, GetMusicResponse } from '../types/music';
+import { CreateMusicOptions, ExtendMusicOptions, GetMusicResponse } from '../types/music';
 import { APIError } from '../errors';
 import { API_BASE_URL } from '../constants';
 
@@ -14,11 +14,25 @@ export class SunoAPI {
         this.baseUrl = config.baseUrl || API_BASE_URL;
     }
 
+    private validateExtendMusicOptions(options: ExtendMusicOptions) {
+        const requiredFields = ['custom_mode', 'prompt', 'continue_clip_id', 'continue_at', 'mv'] as const;
+        for (const field of requiredFields) {
+            if (!options[field as keyof ExtendMusicOptions]) {
+                throw new APIError(`Missing required field for extend music: ${field}`);
+            }
+        }
+    }
+
     async createMusic(options: CreateMusicOptions): Promise<GetMusicResponse> {
         try {
-            const response = await axios.post(`${this.baseUrl}/create_music`, options, {
+            if (options.task_type === 'extend_music') {
+                this.validateExtendMusicOptions(options as ExtendMusicOptions);
+            }
+
+            const response = await axios.post(`${this.baseUrl}/api/v1/sonic/create`, options, {
                 headers: {
                     'Authorization': `Bearer ${this.apiKey}`,
+                    'Content-Type': 'application/json',
                 },
             });
             return response.data;

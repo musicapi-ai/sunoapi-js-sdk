@@ -1,3 +1,6 @@
+export type MusicVersion = 'sonic-v3-5' | 'sonic-v4';
+export type TaskType = 'create_music' | 'extend_music' | 'concat_music' | 'cover_music' | 'cover_upload_music' | 'extend_upload_music' | 'persona_music';
+
 export interface MusicOptions {
     /** 音乐标题 */
     title?: string;
@@ -6,7 +9,7 @@ export interface MusicOptions {
     /** 是否生成纯音乐 */
     makeInstrumental?: boolean;
     /** 使用的音乐模型版本 */
-    mv: 'sonic-v3-5' | 'sonic-v4';
+    mv: MusicVersion;
     /** 是否使用自定义模式 */
     customMode?: boolean;
     /** 歌词内容（自定义模式必填） */
@@ -14,31 +17,33 @@ export interface MusicOptions {
     /** GPT 描述提示词（非自定义模式必填） */
     gptDescriptionPrompt?: string;
     /** 任务类型 */
-    taskType?: 'create_music' | 'extend_music' | 'concat_music' | 'cover_music' | 'cover_upload_music' | 'extend_upload_music' | 'persona_music';
+    taskType?: TaskType;
     /** 角色 ID */
     personaId?: string;
 }
 
-export interface CreateMusicOptions {
-    /** 是否使用自定义模式 */
-    custom_mode: boolean;
-    /** 歌词内容 */
-    prompt?: string;
-    /** 音乐标题 */
-    title?: string;
-    /** 音乐标签 */
-    tags?: string;
-    /** 使用的音乐模型版本 */
-    mv: 'sonic-v3-5' | 'sonic-v4';
-    /** 是否生成纯音乐 */
-    make_instrumental?: boolean;
-    /** GPT 描述提示词 */
-    gpt_description_prompt?: string;
-    /** 任务类型 */
-    task_type?: 'create_music' | 'extend_music' | 'concat_music' | 'cover_music' | 'cover_upload_music' | 'extend_upload_music' | 'persona_music';
-    /** 角色 ID */
-    persona_id?: string;
+export interface ExtendMusicOptions {
+  task_type: 'extend_music';
+  custom_mode: boolean;
+  prompt: string;
+  title?: string;
+  tags?: string;
+  continue_clip_id: string;
+  continue_at: number;
+  mv: string;
 }
+
+export type CreateMusicOptions = {
+  task_type?: TaskType;
+  custom_mode: boolean;
+  prompt?: string;
+  title?: string;
+  tags?: string;
+  mv: string;
+  make_instrumental?: boolean;
+  gpt_description_prompt?: string;
+  persona_id?: string;
+} & Partial<ExtendMusicOptions>;
 
 export class Music {
     title: string;
@@ -55,10 +60,8 @@ export class Music {
 }
 
 export interface MusicResponse {
-    /** 响应消息 */
-    message: string;
-    /** 任务 ID */
-    task_id: string;
+  message: string;
+  task_id: string;
 }
 
 export interface MusicResult {
@@ -96,10 +99,19 @@ export interface MusicData {
 }
 
 export interface GetMusicResponse {
-    /** 状态码 */
-    code: number;
-    /** 音乐数据数组 */
-    data: MusicData[];
-    /** 响应消息 */
-    message: string;
+  code: number;
+  data: Array<{
+    clip_id: string;
+    state: string;
+    title: string;
+    tags: string;
+    lyrics: string;
+    image_url: string;
+    audio_url: string;
+    video_url: string;
+    created_at: string;
+    mv: string;
+    duration: number;
+  }>;
+  message: string;
 }

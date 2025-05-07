@@ -95,6 +95,55 @@ const response = await suno.createMusic({
 console.log(response);
 ```
 
+### Extending Existing Music
+
+```javascript
+const response = await suno.createMusic({
+  task_type: 'extend_music',
+  custom_mode: true,
+  prompt: `[Verse]
+Stars they shine above me
+Moonlight softly glows`,
+  title: 'Stars Extended',
+  tags: 'pop',
+  continue_clip_id: 'a533515b-56c9-4eb2-8cb8-7f3dfa165eb8',
+  continue_at: 30,
+  mv: 'sonic-v3-5'
+});
+
+console.log(response);
+```
+
+### 扩展现有音乐
+
+```javascript
+const response = await suno.createMusic({
+  task_type: 'extend_music',
+  custom_mode: true,
+  prompt: `[Verse]
+Stars they shine above me
+Moonlight softly glows`,
+  title: 'Stars Extended',
+  tags: 'pop',
+  continue_clip_id: 'a533515b-56c9-4eb2-8cb8-7f3dfa165eb8',
+  continue_at: 30,
+  mv: 'sonic-v3-5'
+});
+
+console.log(response);
+```
+
+#### 扩展音乐的参数说明
+
+- **`task_type`** (string): 必须设置为 `'extend_music'`
+- **`custom_mode`** (boolean): 是否使用自定义模式
+- **`prompt`** (string): 新的歌词内容
+- **`continue_clip_id`** (string): 要扩展的原始音乐片段ID
+- **`continue_at`** (number): 从原始音乐的第几秒开始扩展
+- **`title`** (string): 新的歌曲标题（可选）
+- **`tags`** (string): 音乐风格标签（可选）
+- **`mv`** (string): 音乐模型版本
+
 ## API Reference
 
 ### `createMusic(options)`

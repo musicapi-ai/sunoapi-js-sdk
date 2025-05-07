@@ -2,15 +2,29 @@
   "name": "sunoapi",
   "version": "1.0.0",
   "description": "A Node.js SDK for interacting with the SunoAPI to create and manage music using the Sonic model.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "test": "jest",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
     "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch", 
+    "test:coverage": "jest --coverage",
+    "prepare": "npm run build",
     "start": "node dist/index.js"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   },
   "homepage": "https://github.com/musicapi-ai/sunoapi-js-sdk",
   "repository": {
-    "type": "git",
+    "type": "git", 
     "url": "https://github.com/musicapi-ai/sunoapi-js-sdk.git"
   },
   "keywords": [
@@ -22,13 +36,14 @@
   "author": "musicapi",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^1.6.2"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.24",
-    "@types/node": "^14.0.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.0.0",
     "jest": "^29.7.0",
-    "ts-jest": "^29.3.2",
-    "typescript": "^4.0.0"
+    "rimraf": "^5.0.5",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.0.0"
   }
 }

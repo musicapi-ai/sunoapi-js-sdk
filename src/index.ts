@@ -1,6 +1,6 @@
 import { SunoAPI as SunoAPIClient } from './client';
 import { SunoAPIConfig } from './types/config';
-import { CreateMusicOptions, MusicResponse, GetMusicResponse } from './types/music';
+import { CreateMusicOptions, ExtendMusicOptions, MusicResponse, GetMusicResponse } from './types/music';
 
 export class SunoAPI {
   private client: SunoAPIClient;
@@ -10,8 +10,8 @@ export class SunoAPI {
   }
 
   /**
-   * 创建音乐
-   * @param options 创建音乐的选项
+   * 创建或扩展音乐
+   * @param options 创建/扩展音乐的选项
    */
   public async createMusic(options: CreateMusicOptions): Promise<GetMusicResponse> {
     return this.client.createMusic(options);
