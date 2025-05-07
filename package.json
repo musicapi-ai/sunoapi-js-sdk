@@ -1,5 +1,5 @@
 {
-  "name": "sunoapi",
+  "name": "@musicapi/sunoapi",
   "version": "1.0.0",
   "description": "A Node.js SDK for interacting with the SunoAPI to create and manage music using the Sonic model.",
   "main": "dist/index.js",
