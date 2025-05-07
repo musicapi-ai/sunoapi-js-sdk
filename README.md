@@ -1,5 +1,12 @@
 # SunoAPI JS SDK
 
+[![npm version](https://img.shields.io/npm/v/@musicapi/sunoapi.svg)](https://www.npmjs.com/package/@musicapi/sunoapi)
+[![npm downloads](https://img.shields.io/npm/dm/@musicapi/sunoapi.svg)](https://www.npmjs.com/package/@musicapi/sunoapi)
+[![GitHub license](https://img.shields.io/github/license/musicapi-ai/sunoapi-js-sdk)](https://github.com/musicapi-ai/sunoapi-js-sdk/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/musicapi-ai/sunoapi-js-sdk)](https://github.com/musicapi-ai/sunoapi-js-sdk/issues)
+[![GitHub stars](https://img.shields.io/github/stars/musicapi-ai/sunoapi-js-sdk)](https://github.com/musicapi-ai/sunoapi-js-sdk/stargazers)
+[![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-blue.svg)](https://www.typescriptlang.org/)
+
 The `sunoapi` is a Node.js SDK for interacting with the SunoAPI to create and manage music using the Sonic model.
 
 ## Features
