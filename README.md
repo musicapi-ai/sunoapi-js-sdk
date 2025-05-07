@@ -126,6 +126,17 @@ Moonlight softly glows`,
 console.log(response);
 ```
 
+#### Parameters for Extending Music
+
+- **`task_type`** (string): Must be set to `'extend_music'`
+- **`custom_mode`** (boolean): Whether to use custom mode
+- **`prompt`** (string): New lyrics content
+- **`continue_clip_id`** (string): ID of the original music clip to extend
+- **`continue_at`** (number): The time (in seconds) from the original music to start extension
+- **`title`** (string): New song title (optional)
+- **`tags`** (string): Music style tags (optional)
+- **`mv`** (string): Music model version
+
 ### 扩展现有音乐
 
 ```typescript
