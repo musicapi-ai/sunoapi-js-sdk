@@ -1,7 +1,7 @@
 // filepath: /sunoapi-js-sdk/examples/get-music.ts
 
-import SunoAPI from '../src/client';
-import { GetMusicResponse } from '../src/client/types';
+import { SunoAPI } from '../src';
+import { GetMusicResponse } from '../src/types';
 
 const suno = new SunoAPI({
   apiKey: 'your_api_key', // Replace with your API key

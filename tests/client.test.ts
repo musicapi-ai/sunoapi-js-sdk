@@ -2,7 +2,7 @@ import { SunoAPI } from '../src/client/index';
 import { CreateMusicOptions } from '../src/types/music';
 import axios from 'axios';
 
-// 模拟 axios
+// Mock axios
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
@@ -14,13 +14,13 @@ describe('SunoAPI', () => {
             apiKey: 'test_api_key',
             baseUrl: 'https://api.musicapi.ai',
         });
-        // 重置所有模拟
+        // Reset all mocks
         jest.clearAllMocks();
     });
 
     describe('createMusic', () => {
         it('should create music successfully', async () => {
-            // 模拟成功响应
+            // Mock successful response
             mockedAxios.post.mockResolvedValueOnce({
                 data: {
                     message: 'success',
@@ -43,7 +43,7 @@ describe('SunoAPI', () => {
         });
 
         it('should throw an error for invalid options', async () => {
-            // 模拟失败响应
+            // Mock failed response
             mockedAxios.post.mockRejectedValueOnce(new Error('Invalid options'));
 
             const options: CreateMusicOptions = {
@@ -59,7 +59,7 @@ describe('SunoAPI', () => {
 
     describe('getMusic', () => {
         it('should retrieve music by task ID', async () => {
-            // 模拟成功响应
+            // Mock successful response
             mockedAxios.get.mockResolvedValueOnce({
                 data: {
                     code: 200,
@@ -74,7 +74,7 @@ describe('SunoAPI', () => {
         });
 
         it('should throw an error for invalid task ID', async () => {
-            // 模拟失败响应
+            // Mock failed response
             mockedAxios.get.mockRejectedValueOnce(new Error('Invalid task ID'));
 
             const invalidTaskId = 'invalid-task-id';

@@ -1,5 +1,5 @@
-import SunoAPI from '../src/client';
-import { CreateMusicOptions } from '../src/client/types';
+import { SunoAPI, TaskType } from '../src';
+import { CreateMusicOptions } from '../src/types';
 
 const suno = new SunoAPI({
   apiKey: 'your_api_key', // Replace with your API key

@@ -1,6 +1,6 @@
 import { SunoAPI as SunoAPIClient } from './client';
 import { SunoAPIConfig } from './types/config';
-import { CreateMusicOptions, GetMusicResponse, CreateLyricsOptions, CreateLyricsResponse } from './types/music';
+import { CreateMusicOptions, GetMusicResponse, CreateLyricsOptions, CreateLyricsResponse, ConcatMusicOptions, CoverMusicOptions } from './types/music';
 
 export class SunoAPI {
   private client: SunoAPIClient;
@@ -10,27 +10,45 @@ export class SunoAPI {
   }
 
   /**
-   * 创建或扩展音乐
-   * @param options 创建/扩展音乐的选项
+   * Create or extend music
+   * @param options Options for creating/extending music
    */
   public async createMusic(options: CreateMusicOptions): Promise<GetMusicResponse> {
     return this.client.createMusic(options);
   }
 
   /**
-   * 获取音乐生成结果
-   * @param taskId 任务ID
+   * Get music generation result
+   * @param taskId Task ID
    */
   public async getMusic(taskId: string): Promise<GetMusicResponse> {
     return this.client.getMusic(taskId);
   }
 
   /**
-   * 生成歌词内容
-   * @param options 生成歌词的选项
+   * Generate lyrics content
+   * @param options Options for generating lyrics
    */
   public async createLyrics(options: CreateLyricsOptions): Promise<CreateLyricsResponse> {
     return this.client.createLyrics(options);
+  }
+
+  /**
+   * Connect music segments
+   * @param continue_clip_id ID of the music clip to connect
+   */
+  public async concatMusic(continue_clip_id: string): Promise<GetMusicResponse> {
+    return this.client.concatMusic(continue_clip_id);
+  }
+
+  /**
+   * Create song cover
+   * @param options Cover options
+   */
+  public async coverMusic(options: CoverMusicOptions): Promise<GetMusicResponse> {
+    // Ensure the correct task_type is set
+    options.task_type = 'cover_music';
+    return this.client.coverMusic(options);
   }
 }
 

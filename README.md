@@ -7,7 +7,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/musicapi-ai/sunoapi-js-sdk)](https://github.com/musicapi-ai/sunoapi-js-sdk/stargazers)
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-blue.svg)](https://www.typescriptlang.org/)
 
-The `sunoapi` is a Node.js SDK for interacting with the SunoAPI to create and manage music using the Sonic model.
+The `sunoapi` is a Node.js SDK for interacting with the SunoAPI to create and manage music.
 
 ## Features
 
@@ -137,36 +137,6 @@ console.log(response);
 - **`tags`** (string): Music style tags (optional)
 - **`mv`** (string): Music model version
 
-### 扩展现有音乐
-
-```typescript
-const response: CreateMusicResponse = await suno.createMusic({
-  task_type: 'extend_music',
-  custom_mode: true,
-  prompt: `[Verse]
-Stars they shine above me
-Moonlight softly glows`,
-  title: 'Stars Extended',
-  tags: 'pop',
-  continue_clip_id: 'a533515b-56c9-4eb2-8cb8-7f3dfa165eb8',
-  continue_at: 30,
-  mv: 'sonic-v3-5'
-});
-
-console.log(response);
-```
-
-#### 扩展音乐的参数说明
-
-- **`task_type`** (string): 必须设置为 `'extend_music'`
-- **`custom_mode`** (boolean): 是否使用自定义模式
-- **`prompt`** (string): 新的歌词内容
-- **`continue_clip_id`** (string): 要扩展的原始音乐片段ID
-- **`continue_at`** (number): 从原始音乐的第几秒开始扩展
-- **`title`** (string): 新的歌曲标题（可选）
-- **`tags`** (string): 音乐风格标签（可选）
-- **`mv`** (string): 音乐模型版本
-
 ## API Reference
 
 ### `createMusic(options)`
@@ -196,13 +166,13 @@ Creates music based on the provided options.
 
 ### `getMusic(taskId)`
 
-获取指定任务 ID 的音乐生成结果。
+Retrieve music generation results for a specified task ID.
 
-#### 参数
+#### Parameters
 
-- **`taskId`** (string): 创建音乐时返回的任务 ID。
+- **`taskId`** (string): Task ID returned when creating music.
 
-#### 返回示例
+#### Example Response
 
 ```json
 {
@@ -224,7 +194,7 @@ Creates music based on the provided options.
 }
 ```
 
-#### 使用示例
+#### Usage Example
 
 ```typescript
 const taskId: string = "468d0e42-f7a6-40ce-9a4c-37db56b13b99";
@@ -234,13 +204,13 @@ console.log(result);
 
 ### `createLyrics(options)`
 
-生成歌词内容。
+Generate song lyrics content.
 
-#### 参数
+#### Parameters
 
-- **`description`** (string): 歌词描述，用于指导歌词生成的主题和风格。
+- **`description`** (string): Lyrics description, used to guide the theme and style of the generated lyrics.。
 
-#### 返回示例
+#### Example Response
 
 ```json
 {
@@ -255,7 +225,7 @@ console.log(result);
 }
 ```
 
-#### 使用示例
+#### Usage Example
 
 ```typescript
 interface CreateLyricsOptions {
@@ -272,6 +242,7 @@ console.log(response);
 
 - When extending uploaded music, use the `extend_upload_music` task type.
 - Ensure that the `mv` field is set to a valid model version (`sonic-v3-5` or `sonic-v4`).
+- For more details, please refer to [API Documentation](https://docs.musicapi.ai/)
 
 ## License
 

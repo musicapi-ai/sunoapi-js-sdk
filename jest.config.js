@@ -5,5 +5,5 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   coverageDirectory: 'coverage',
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.{ts,js}', '!src/index.ts'],
+  collectCoverageFrom: ['src/**/*.{ts,js}', '!src/index.ts', '!src/**/*.d.ts', '!src/types/**/*.ts'],
 };

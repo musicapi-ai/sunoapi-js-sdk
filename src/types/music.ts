@@ -2,23 +2,23 @@ export type MusicVersion = 'sonic-v3-5' | 'sonic-v4';
 export type TaskType = 'create_music' | 'extend_music' | 'concat_music' | 'cover_music' | 'cover_upload_music' | 'extend_upload_music' | 'persona_music';
 
 export interface MusicOptions {
-    /** 音乐标题 */
+    /** Music title */
     title?: string;
-    /** 音乐标签/风格 */
+    /** Music tags/style */
     tags?: string;
-    /** 是否生成纯音乐 */
+    /** Whether to generate instrumental music only */
     makeInstrumental?: boolean;
-    /** 使用的音乐模型版本 */
+    /** Music model version to use */
     mv: MusicVersion;
-    /** 是否使用自定义模式 */
+    /** Whether to use custom mode */
     customMode?: boolean;
-    /** 歌词内容（自定义模式必填） */
+    /** Lyrics content (required for custom mode) */
     prompt?: string;
-    /** GPT 描述提示词（非自定义模式必填） */
+    /** GPT description prompt (required for non-custom mode) */
     gptDescriptionPrompt?: string;
-    /** 任务类型 */
+    /** Task type */
     taskType?: TaskType;
-    /** 角色 ID */
+    /** Persona ID */
     personaId?: string;
 }
 
@@ -30,6 +30,21 @@ export interface ExtendMusicOptions {
   tags?: string;
   continue_clip_id: string;
   continue_at: number;
+  mv: string;
+}
+
+export interface ConcatMusicOptions {
+  task_type: 'concat_music';
+  continue_clip_id: string;
+}
+
+export interface CoverMusicOptions {
+  task_type: 'cover_music';
+  custom_mode: boolean;
+  continue_clip_id: string;
+  prompt: string;
+  title?: string;
+  tags?: string;
   mv: string;
 }
 
@@ -65,36 +80,36 @@ export interface MusicResponse {
 }
 
 export interface MusicResult {
-    /** 状态码 */
+    /** Status code */
     code: number;
-    /** 音乐数据数组 */
+    /** Music data array */
     data: MusicData[];
-    /** 响应消息 */
+    /** Response message */
     message: string;
 }
 
 export interface MusicData {
-    /** 音乐片段 ID */
+    /** Music clip ID */
     clipId: string;
-    /** 生成状态 */
+    /** Generation state */
     state: string;
-    /** 音乐标题 */
+    /** Music title */
     title: string;
-    /** 音乐标签 */
+    /** Music tags */
     tags: string;
-    /** 歌词内容 */
+    /** Lyrics content */
     lyrics?: string;
-    /** 封面图片 URL */
+    /** Cover image URL */
     imageUrl: string;
-    /** 音频文件 URL */
+    /** Audio file URL */
     audioUrl: string;
-    /** 视频文件 URL */
+    /** Video file URL */
     videoUrl: string;
-    /** 创建时间 */
+    /** Creation time */
     createdAt: string;
-    /** 使用的模型版本 */
+    /** Model version used */
     mv: string;
-    /** 音乐时长（秒） */
+    /** Music duration (seconds) */
     duration: number;
 }
 

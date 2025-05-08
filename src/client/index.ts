@@ -1,7 +1,7 @@
 // src/client/index.ts
 
 import axios from 'axios';
-import { CreateMusicOptions, ExtendMusicOptions, GetMusicResponse, CreateLyricsOptions, CreateLyricsResponse } from '../types/music';
+import { CreateMusicOptions, ExtendMusicOptions, GetMusicResponse, CreateLyricsOptions, CreateLyricsResponse, ConcatMusicOptions, CoverMusicOptions } from '../types/music';
 import { APIError } from '../errors';
 import { API_BASE_URL } from '../constants';
 
@@ -19,6 +19,15 @@ export class SunoAPI {
         for (const field of requiredFields) {
             if (!options[field as keyof ExtendMusicOptions]) {
                 throw new APIError(`Missing required field for extend music: ${field}`);
+            }
+        }
+    }
+
+    private validateCoverMusicOptions(options: CoverMusicOptions) {
+        const requiredFields = ['task_type', 'custom_mode', 'continue_clip_id', 'prompt', 'mv'] as const;
+        for (const field of requiredFields) {
+            if (!options[field]) {
+                throw new APIError(`Missing required field for cover music: ${field}`);
             }
         }
     }
@@ -74,6 +83,47 @@ export class SunoAPI {
                 throw new APIError(error.response.data.message);
             }
             throw new APIError('Error creating lyrics');
+        }
+    }
+
+    async concatMusic(continue_clip_id: string): Promise<GetMusicResponse> {
+        try {
+            const options: ConcatMusicOptions = {
+                task_type: 'concat_music',
+                continue_clip_id
+            };
+
+            const response = await axios.post(`${this.baseUrl}/api/v1/sonic/create`, options, {
+                headers: {
+                    'Authorization': `Bearer ${this.apiKey}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+            return response.data;
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response?.data?.message) {
+                throw new APIError(error.response.data.message);
+            }
+            throw new APIError('Error concatenating music');
+        }
+    }
+
+    async coverMusic(options: CoverMusicOptions): Promise<GetMusicResponse> {
+        try {
+            this.validateCoverMusicOptions(options);
+            
+            const response = await axios.post(`${this.baseUrl}/api/v1/sonic/create`, options, {
+                headers: {
+                    'Authorization': `Bearer ${this.apiKey}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+            return response.data;
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response?.data?.message) {
+                throw new APIError(error.response.data.message);
+            }
+            throw new APIError('Error creating cover music');
         }
     }
 }
